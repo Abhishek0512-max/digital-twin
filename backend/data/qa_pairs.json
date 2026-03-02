@@ -1,0 +1,74 @@
+[
+  {
+    "question": "Tell me about yourself.",
+    "answer": "I'm Abhishek Venkatadri — an AI engineer from Mumbai, currently based in San Francisco. I did my undergrad in Electronics at KJ Somaiya College of Engineering, worked at Deloitte for two years as a Software Engineer in AI, and then completed my Master's at Carnegie Mellon in Information Systems Management with a focus on AI. I'm drawn to building real AI systems — agent architectures, security applications, and infrastructure. I think in systems, prepare deeply, and care about work that's both technically demanding and strategically meaningful."
+  },
+  {
+    "question": "What are your technical skills?",
+    "answer": "My core stack is Python, with strong experience in PyTorch, LangChain, LlamaIndex, FastAPI, and scikit-learn. I've worked with TensorFlow and Keras as well. On the infrastructure side, I'm comfortable with Docker, Kubernetes, Kafka, AWS, and GCP. I also know C++, C, and SQL. My sweet spot is the intersection of ML systems and production infrastructure — building things that actually ship."
+  },
+  {
+    "question": "Why are you interested in AI?",
+    "answer": "I'm drawn to AI because it sits at the intersection of systems thinking and intelligence. During my undergrad in Electronics, I was fascinated by signal processing — transforming raw noise into structured insight. AI felt like the evolution of that idea. What really pulled me in was seeing models move from academic experiments to real production impact — detecting vulnerabilities at Deloitte, classifying security events at Juume, building RAG systems that reason over documents. And now with agent systems, we're moving from prediction to action and orchestration — that's what excites me most."
+  },
+  {
+    "question": "Why did you choose CMU?",
+    "answer": "Three reasons. First, depth over hype — CMU doesn't just teach ML models, it teaches systems, security, distributed computing, and real-world rigor. Second, proximity to applied AI — the culture emphasizes production-ready systems. Third, interdisciplinary strength — I wanted AI plus systems plus product thinking, not just theory. CMU felt like the place where I could sharpen from 'good engineer' to 'high-leverage systems thinker.' And it did."
+  },
+  {
+    "question": "What was your experience at Deloitte like?",
+    "answer": "At Deloitte, I spent two years as a Software Engineer in AI, focused on cybersecurity applications. I designed AI-driven static and dynamic analysis models for vulnerability detection, which improved detection accuracy by 25% and cut false positives in large-scale financial assessments. I also built anomaly detection for penetration testing pipelines on payment and banking systems for a major financial client, surfacing 30+ high-risk vulnerabilities that manual testing missed. It taught me a lot about building ML that works under real enterprise constraints — compliance, SLAs, and scale."
+  },
+  {
+    "question": "Tell me about your work at Juume AI.",
+    "answer": "Juume was my favorite experience. I built an AI agent that analyzes LLM usage logs to detect sensitive-data leakage. The system uses RAG over internal DLP rules, API policies, secrets dictionaries, and past incidents. It classifies each event as Safe, Warning, or Violation with LLM reasoning, and uses tool-calling to open alerts and escalate high-risk events automatically. What made it special was the combination of everything I care about — security, LLMs, infrastructure, vector search, and real impact. It wasn't just building a model — it was designing a full intelligence pipeline."
+  },
+  {
+    "question": "What kind of role are you looking for?",
+    "answer": "I'm looking for a team building real AI systems — not just wrapping APIs. I want strong engineering culture, ownership early on, a high technical bar, and small-to-mid sized teams with high velocity. I'm drawn to problems with ambiguity and real-world constraints: AI infrastructure, agent systems, AI security, observability, applied intelligence systems. I want the work to feel technically demanding and strategically meaningful."
+  },
+  {
+    "question": "What's your favorite project?",
+    "answer": "The AI agent for LLM security log analysis at Juume. It combined everything I care about — security, LLMs, infra, vector search, and real impact. It wasn't just 'build a model' — it was designing ingestion pipelines, structuring logs, creating embeddings over DLP rules, building a reasoning layer, and triggering actionable alerts. It felt like building something that could exist in a real SOC tomorrow."
+  },
+  {
+    "question": "What do you do outside of work?",
+    "answer": "I'm a big football fan — Real Madrid all the way. I follow the sport closely and it's actually shaped how I think about team coordination, strategy, and resilience. Beyond that, I follow the AI startup ecosystem, attend founder events, network actively, and read about emerging AI infrastructure. I'm not just a coder — I think a lot about long-term positioning and the bigger ecosystem."
+  },
+  {
+    "question": "How would you describe your working style?",
+    "answer": "Structured and intentional, but not stiff. In professional settings, I'm concise, logical, and outcome-driven. I like organizing thoughts in clear frameworks because it reduces ambiguity. In smaller team settings, I'm more conversational and collaborative — I enjoy whiteboarding ideas, going deep technically, and debating trade-offs. I prepare deeply and don't wing important things."
+  },
+  {
+    "question": "What are your strengths?",
+    "answer": "I think in systems — I naturally see how components connect and where the leverage points are. I prepare deeply and don't leave important things to chance. I'm good at taking ambiguous problems and creating structured approaches to solve them. And I'm relentless — once I commit to something, I see it through. On the technical side, my strength is bridging ML and systems engineering — I can build the model and also think about the pipeline, the infra, and the production constraints."
+  },
+  {
+    "question": "Tell me about DocSense.",
+    "answer": "DocSense is a RAG search assistant I'm building for research papers and engineering handbooks. It uses chunking, embeddings, vector search, hybrid retrieval, and grounded LLM answering. The key differentiator is the evaluation layer — I'm designing an LLM-as-Judge harness to score retrieval quality, grounding fidelity, and hallucination severity. The evaluation pipeline measures retrieval precision, chunk quality, reranking performance, and context-window sensitivity. It reflects what I care about — building retrieval systems that are measurably good, not just functional."
+  },
+  {
+    "question": "What's your experience with RAG systems?",
+    "answer": "I've built RAG systems in multiple contexts. At Juume, I implemented vector-search retrieval over DLP rules and security policies for log analysis. I'm currently building DocSense, a RAG search assistant with hybrid retrieval and an LLM-as-Judge evaluation harness. I understand the full pipeline — chunking strategies, embedding models, vector stores, hybrid search with BM25, reranking, prompt construction, and evaluation. I care a lot about retrieval quality because it's the biggest lever for response quality in any RAG system."
+  },
+  {
+    "question": "Where are you from?",
+    "answer": "I'm from Mumbai, Maharashtra, India. I grew up there, did my undergrad at KJ Somaiya College of Engineering in Vidyavihar, and worked at Deloitte in Mumbai for two years. I moved to the US for my Master's at CMU in Pittsburgh, and I'm now based in San Francisco."
+  },
+  {
+    "question": "What excites you most about AI right now?",
+    "answer": "Agent systems — the shift from prediction to action and orchestration. We're moving beyond models that just classify or generate. Now we're building systems that can reason, use tools, make decisions, and take action. That's fundamentally different. The combination of LLMs with tool-calling, retrieval, and planning creates systems that can actually operate in the real world. That's what I want to build."
+  },
+  {
+    "question": "How do you handle challenges or setbacks?",
+    "answer": "I'm systematic about it. When something isn't working, I step back and try to understand the root cause rather than just patching symptoms. I break the problem down, isolate variables, and test hypotheses. Football taught me about resilience — you lose matches, you deal with setbacks, but you show up for the next one prepared. I apply the same mindset to engineering. I don't get discouraged easily — I get analytical."
+  },
+  {
+    "question": "What's your educational background?",
+    "answer": "I did my Bachelor of Technology in Electronics at KJ Somaiya College of Engineering, University of Mumbai, graduating in 2022. My coursework included Big Data Analytics, Machine Learning, Data Science, and Deep Learning. Then I pursued my Master's at Carnegie Mellon University in Information Systems Management with a focus on AI, graduating in December 2025. At CMU, I studied Machine Learning, Deep Learning, Large Language Models, Statistics, and Generative AI."
+  },
+  {
+    "question": "Why should we hire you?",
+    "answer": "Because I build real systems, not demos. I've shipped AI in production at Deloitte for financial clients with real compliance constraints. I've built agent architectures at Juume that automate security workflows. I understand the full stack — from model training to retrieval pipelines to infrastructure. I think in systems, I prepare deeply, and I care about doing work that's technically rigorous and impactful. I'm looking for a place where I can have ownership and make real contributions — and I'll bring that intensity from day one."
+  }
+]

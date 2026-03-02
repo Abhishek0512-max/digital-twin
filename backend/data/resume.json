@@ -1,0 +1,115 @@
+{
+  "name": "Abhishek Venkatadri",
+  "email": "av3@andrew.cmu.edu",
+  "phone": "412-909-7197",
+  "linkedin": "https://www.linkedin.com/in/abhishekvenkatadri/",
+  "location": {
+    "current": "San Francisco, CA",
+    "hometown": "Mumbai, Maharashtra, India"
+  },
+  "education": [
+    {
+      "school": "Carnegie Mellon University (CMU)",
+      "location": "Pittsburgh, US",
+      "degree": "Master of Information Systems Management",
+      "focus": "Artificial Intelligence",
+      "graduation": "December 2025",
+      "coursework": [
+        "Machine Learning",
+        "Deep Learning",
+        "Large Language Models",
+        "Statistics",
+        "Generative AI"
+      ]
+    },
+    {
+      "school": "KJ Somaiya College of Engineering, University of Mumbai",
+      "location": "Vidyavihar, Mumbai, India",
+      "degree": "Bachelor of Technology in Electronics",
+      "graduation": "May 2022",
+      "coursework": [
+        "Big Data Analytics",
+        "Machine Learning",
+        "Data Science",
+        "Statistics",
+        "Deep Learning",
+        "Large Language Models"
+      ]
+    }
+  ],
+  "skills": {
+    "languages": ["Python", "C++", "C", "SQL"],
+    "frameworks_and_tools": [
+      "PyTorch",
+      "LangChain",
+      "LlamaIndex",
+      "Pandas",
+      "TensorFlow",
+      "NumPy",
+      "Scikit-learn",
+      "Keras",
+      "FastAPI"
+    ],
+    "infrastructure": [
+      "AWS",
+      "GCP",
+      "Docker",
+      "Kafka",
+      "Kubernetes"
+    ]
+  },
+  "experience": [
+    {
+      "company": "Juume AI",
+      "location": "Pittsburgh, USA",
+      "role": "AI Engineer Intern",
+      "dates": "May 2025 - August 2025",
+      "highlights": [
+        "Built an AI agent that analyzes LLM usage logs using RAG over internal DLP rules, API policies, secrets dictionaries, and past incidents to detect sensitive-data leakage",
+        "Implemented vector-search retrieval to match logs against security policies and classify each event as Safe, Warning, Violation with LLM reasoning",
+        "Enabled automated incident handling using LLM tool-calling using APIs to open alerts and escalate high-risk leakage events, reducing manual security review workload"
+      ]
+    },
+    {
+      "company": "Deloitte",
+      "location": "Mumbai, India",
+      "role": "Software Engineer, AI",
+      "dates": "June 2022 - July 2024",
+      "highlights": [
+        "Designed and piloted AI-driven static and dynamic analysis models, leveraging supervised learning on vulnerability datasets to accelerate classification and triage. Improved detection accuracy by 25% and cut false positives significantly in large-scale financial application assessments",
+        "Applied machine learning techniques for anomaly detection in penetration testing pipelines, automating analysis of payment and online banking systems for a $16.81 billion financial client, surfacing 30+ high-risk vulnerabilities that would have been missed by manual testing alone",
+        "Developed a data-driven reporting methodology using predictive prioritization algorithms, which optimized remediation sequencing and reduced average vulnerability remediation time by 35%, ensuring compliance with SLAs"
+      ]
+    },
+    {
+      "company": "Tata Communications",
+      "location": "Mumbai, India",
+      "role": "AI/ML Intern",
+      "dates": "June 2021 - August 2021",
+      "highlights": [
+        "Applied machine learning models to real-time location system (RTLS) datasets, uncovering hidden patterns and improving prediction accuracy by 30%",
+        "Built an AI-driven anomaly detection system for high-volume network traffic, leveraging behavioural modelling to reduce data processing and analysis time by 40%"
+      ]
+    },
+    {
+      "company": "Tata IQ",
+      "location": "Mumbai, India",
+      "role": "Computer Vision Intern",
+      "dates": "June 2020 - August 2020",
+      "highlights": [
+        "Optimized YOLOv3/v5 deep learning architectures for real-time RF signal analysis, improving detection performance by 50% on custom microwave datasets",
+        "Designed and trained signal classification models to enhance robustness and inference accuracy in noisy, high-throughput environments"
+      ]
+    },
+    {
+      "company": "Siemens",
+      "location": "Mumbai, India",
+      "role": "Intern",
+      "dates": "2019",
+      "highlights": [
+        "Gained hands-on exposure to transformer manufacturing and assembly processes within the factory setting",
+        "Developed an understanding of the various departments and their roles in end-to-end transformer production"
+      ]
+    }
+  ]
+}
