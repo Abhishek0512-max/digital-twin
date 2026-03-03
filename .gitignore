@@ -2,6 +2,7 @@
 __pycache__/
 *.pyc
 node_modules/
+backend/venv/
 backend/chroma_db/
 backend/feedback.db
 backend/eval/results/
