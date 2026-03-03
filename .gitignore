@@ -8,3 +8,4 @@ backend/eval/results/
 frontend/build/
 frontend/dist/
 .DS_Store
+.gh_config/
