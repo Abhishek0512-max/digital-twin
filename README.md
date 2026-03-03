@@ -119,7 +119,7 @@ digital-twin/
 │   ├── eval/
 │   │   ├── evaluator.py      # Evaluation runner
 │   │   ├── judge.py          # LLM-as-Judge scoring
-│   │   └── test_cases.json   # 20 evaluation test cases
+│   │   └── test_cases.json   # 30 evaluation test cases
 │   ├── data/                  # Personal data files
 │   ├── requirements.txt
 │   └── Dockerfile
@@ -160,7 +160,7 @@ This project focuses on **Response Quality** as the Phase 2 deep-dive. Key featu
 | **Query Decomposition** | Broad questions ("Tell me about yourself") are split into focused sub-queries for better recall |
 | **Confidence Guardrails** | Low-confidence caveat prefix, out-of-scope deflection |
 | **Source Citations** | Every response shows which data files were used, with a debug toggle for full retrieval metadata |
-| **LLM-as-Judge Eval** | 20-case evaluation suite scoring faithfulness, relevance, and persona consistency |
+| **LLM-as-Judge Eval** | 30-case evaluation suite scoring faithfulness, relevance, and persona consistency |
 | **User Feedback** | Thumbs up/down on every response, stored in SQLite |
 | **Eval Dashboard** | Visual frontend to run evaluations and inspect per-question results |
 

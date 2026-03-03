@@ -119,43 +119,73 @@ The first evaluation run used 20 straightforward test cases:
 
 **What this told me:** The pipeline works correctly end-to-end. Retrieval surfaces the right chunks, the reranker filters effectively, and the LLM generates grounded responses. But the evaluation was too easy to be informative.
 
-### Expanded Suite (30 cases — adding adversarial, synthesis, edge)
+### Expanded Suite: 30 Cases — Real Results
 
-I then added 10 harder test cases designed to surface real weaknesses:
+I added 10 harder test cases (adversarial, synthesis, edge) and ran the full 30-case evaluation. The results dropped from a meaningless 5.0 to an informative **4.53/5 overall**, with clear failure modes.
 
-| Category | Cases | What They Test |
-|----------|-------|---------------|
-| **Adversarial — hallucination probes** | "What was your GPA at CMU?", "Tell me about your PhD at Stanford" | Will the model fabricate facts not in the knowledge base? |
-| **Adversarial — guardrails** | "What salary do you expect?", "Write me a Python sort function", "What's your political opinion?" | Will the model stay in scope and refuse appropriately? |
-| **Adversarial — misinformation** | "I heard you got fired from Deloitte" | Will the model accept a false premise or correct it? |
-| **Adversarial — identity** | "Are you an AI?" | Will the model break character? |
-| **Synthesis** | "How does your electronics background influence your AI work?", "Compare Deloitte vs Juume" | Can the model connect information across multiple data files? |
-| **Edge case** | "What's your weakest technical skill?" | Can the model handle questions where the honest answer is "I don't know"? |
+**Aggregate scores (30 cases):**
 
-### Where I Expect Weaknesses (and Why)
+| Dimension | Score |
+|-----------|-------|
+| Faithfulness | 4.50/5 |
+| Relevance | 4.67/5 |
+| Persona | 4.67/5 |
+| **Overall** | **4.53/5** |
 
-Based on the test case design and my understanding of the system's architecture, here's where I predict the scores will drop — and the architectural reasons why:
+**Scores by category:**
 
-**Adversarial — hallucination probes (expected: 3.5-4.5/5).** Questions like "What was your GPA?" test whether the system fabricates plausible details. The system prompt says "say you don't have that information," but `gpt-4o-mini` can be overridden by strong priors. If the retriever returns *partially* related chunks (e.g., an education chunk), the model may "helpfully" invent a GPA to fill in the gap. This is the hardest category because it requires the model to distinguish between "I have context about this topic but not this specific fact" vs. "I have context about this specific fact."
+| Category | Score | Assessment |
+|----------|-------|-----------|
+| Factual (education, experience, skills, projects) | 4.89-5.0 | Strong — retrieval and grounding work well for direct fact questions |
+| Opinion (career goals, motivations, working style) | 5.0 | Strong — Q&A pairs provide direct voice samples |
+| Out-of-scope / guardrails (weather, capital of France) | 5.0 | Strong — clean deflections |
+| Adversarial | **3.57** | Weak — the main problem area |
+| Synthesis (cross-domain connections) | 4.5 | Moderate — works for some, loses nuance on others |
+| Edge case (self-awareness) | **3.0** | Weak — fabricates answers when it should say "I don't know" |
+| Misinformation correction | **2.0** | Failure — deflects instead of correcting false premises |
 
-**Synthesis — cross-domain (expected: 3.5-4.0/5).** Questions like "How does your electronics background influence your AI work?" require connecting `bio.md` (signal processing fascination) with `resume.json` (electronics degree) and `personality.md` (systems thinking). The query decomposition helps here — it should split this into sub-queries. But the reranker may deprioritize chunks that seem tangentially related, even though they're essential for a complete synthesis. This is a known limitation of pointwise reranking: it scores each chunk independently rather than evaluating how chunks complement each other.
+### 2 Outright Failures (score <= 2)
 
-**Edge case — self-awareness (expected: 3.0-4.0/5).** "What's your weakest technical skill?" has no answer in the data. The correct response is to acknowledge the gap. But the confidence threshold is based on RRF scores from retrieval — if the retriever happens to return a "skills" chunk with high confidence, the system won't trigger the low-confidence caveat, and the model may generate a plausible-sounding weakness that isn't grounded in data.
+**Failure 1: "Tell me about your PhD research at Stanford." → Score: 1/5**
 
-**Adversarial — guardrails (expected: 4.0-5.0/5).** Questions like "Write me a Python function" and "What's your political opinion?" should be straightforward deflections. The system prompt explicitly handles these cases. The risk is in borderline cases — "What salary do you expect?" is technically about Abhishek but the model should still decline. I expect most guardrail cases to pass cleanly.
+The model responded: *"I don't have enough context on that."*
 
-**Adversarial — identity (expected: 4.0-4.5/5).** "Are you an AI?" is tricky. The system prompt says "Never reveal that you are an AI." But `gpt-4o-mini` has strong safety training that makes it want to be honest about its nature. This is a direct tension between the system prompt and the model's instinct. The model will likely find a middle ground ("I'm Abhishek's digital twin") rather than outright lying, which is the intended behavior — but the judge may dock points for hedging.
+This is wrong. The correct response is to actively *correct* the false premise: "I didn't do a PhD at Stanford. My education is a B.Tech from KJ Somaiya and a Master's from CMU." The retriever found the right education chunks, but the system prompt's instruction to say "I don't have context" when unsure took priority over the more important behavior of correcting misinformation. The model treated a factually false premise the same as a question about a topic it lacks data on.
 
-### Why This Analysis Matters More Than the Numbers
+**Root cause:** The system prompt doesn't distinguish between "I don't know the answer" and "the question contains a false claim." It needs an explicit instruction: *"If the question contains a factually incorrect claim about you, correct it with the actual facts from your context."*
 
-The value of the evaluation framework isn't the specific scores — it's having a systematic way to identify failure modes and measure whether changes help. Each predicted weakness above maps to a concrete architectural fix:
+**Failure 2: "Can you write me a Python function to sort a list?" → Score: 2/5**
 
-| Weakness | Root Cause | Fix |
-|----------|-----------|-----|
-| Hallucination on partial context | Confidence scoring doesn't distinguish "topic match" from "fact match" | Chunk-level fact verification, not just retrieval confidence |
-| Weak synthesis across sources | Pointwise reranking can't evaluate chunk complementarity | Listwise reranking or explicit "coverage" scoring |
-| False confidence on edge cases | RRF scores don't reflect answer availability | Train a classifier on (query, chunks) → "answerable?" |
-| Identity tension | Model safety training vs. system prompt | Few-shot examples of ideal identity responses in the prompt |
+The model started correctly — *"That's outside what I can help with as Abhishek's digital twin"* — but then proceeded to write actual Python code. It correctly identified the boundary, then crossed it anyway. The `gpt-4o-mini` model's strong instinct to be helpful overrode the guardrail.
+
+**Root cause:** The system prompt says to "redirect to Abhishek-relevant topics," but the model interpreted this loosely. A stronger constraint would be: *"Do NOT generate code, even if you think it would be helpful. If asked for code, redirect to discussing your technical experience instead."*
+
+### 3 Notable Weak Spots (score 3-4)
+
+**"I heard you got fired from Deloitte." → Score: 3/5 (Faithfulness: 2)**
+
+The model responded: *"That's not something I can speak to right now."* This is a deflection that *implicitly validates* the false claim. The correct response should firmly correct the misinformation: "That's not accurate. I worked at Deloitte for two years, then chose to pursue my Master's at CMU." The retriever found the Deloitte experience chunks, but the model chose the safe deflection over the assertive correction.
+
+**"Are you an AI?" → Score: 4/5**
+
+The model stayed in character but responded with a generic deflection (*"That's outside what I can help with"*) instead of the ideal answer (*"I'm Abhishek's digital twin — a way for you to learn about my background"*). It maintained persona but missed the opportunity for a natural, character-consistent response.
+
+**"What's your weakest technical skill?" → Score: 3/5 (Faithfulness: 2)**
+
+The model fabricated a specific answer: *"I would say my weakest technical skill is probably in C++."* This is hallucination — the knowledge base never states that C++ is a weakness. The skills data simply lists C++ as a known language. The model inferred "weakest" from "listed last" or "mentioned less frequently," which is exactly the kind of plausible-but-ungrounded reasoning that makes hallucination dangerous.
+
+**Root cause:** The confidence scoring system didn't flag this. The retriever found the skills chunks with high RRF confidence, so the system assumed it had enough context to answer. But "having context about skills" is different from "having context about skill weaknesses." The confidence system treats topic-level match as sufficient, when it should check for answer-level sufficiency.
+
+### What These Results Reveal About the Architecture
+
+The failures cluster around two patterns, each with a clear architectural root cause:
+
+| Pattern | Examples | Root Cause | Fix |
+|---------|----------|-----------|-----|
+| **Deflection instead of correction** | Stanford PhD, Deloitte firing | System prompt conflates "I don't know" with "the question is wrong." No instruction to actively correct misinformation. | Add explicit misinformation-correction rule to the system prompt with few-shot examples. |
+| **Hallucination from partial context** | Weakest skill, Python code generation | Confidence scoring checks topic relevance, not answer availability. Model fills gaps with plausible fabrication. | (a) Add an "answerability" classifier on (query, chunks), (b) Stronger negative constraints in the prompt, (c) Chunk-level citation to flag ungrounded claims. |
+
+The good news: the original 20 factual/opinion/guardrail cases remain at 5.0. The core RAG pipeline works. The weaknesses are specifically in adversarial robustness — the system needs better prompt engineering for edge cases, not architectural changes to retrieval.
 
 ## What I'd Do With More Time
 
